@@ -1,0 +1,52 @@
+version: '3.6'
+services:
+  php-fpm:
+      build:
+       context: ./images/php-fpm/
+       dockerfile: Dockerfile
+      container_name: lempdock_php-fpm_1
+      volumes:
+        - ./www:/var/www
+      depends_on:
+        - redis
+        - mysql
+  nginx:
+      build:
+        context: ./images/nginx
+        dockerfile: Dockerfile
+      container_name: lempdock_nginx_1
+      ports:
+        - "80:80"
+        - "443:443"
+      volumes:
+        - ./www:/var/www
+        - ./images/nginx/nginx.conf:/etc/nginx/nginx.conf
+        - ./images/nginx/sites/:/etc/nginx/sites-available
+        - ./images/nginx/conf.d/:/etc/nginx/conf.d
+      external_links:
+        - lemp_dock_nginx_1
+      depends_on:
+        - php-fpm
+  mysql:
+      build:
+        context: ./images/mysql
+        dockerfile: Dockerfile
+      container_name: lempdock_mysql_1
+      restart: always
+      volumes:
+        - ./data/mysql:/var/lib/mysql
+      external_links:
+        - lempdock_mysql_1
+      ports:
+        - "33066:3306"
+      expose:
+        - 3306
+  redis:
+      image: redis
+      container_name: lempdock_redis_1
+      ports:
+        - "6379:6379"
+      volumes:
+        - ./data/redis:/data/redis
+      external_links:
+        - lempdock_redis_1
