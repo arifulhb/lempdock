@@ -1,1 +1,10 @@
+#!/bin/bash
+echo ""
+echo ">> Welcome to LEMP Dock"
+echo ""
+echo ">>>> Please add a Start in our github repo https://github.com/arifulhb/lempdock"
+echo ""
+echo ">> Starting docker-compose demon"
+
+
 docker-compose up -d
