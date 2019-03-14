@@ -1,6 +1,7 @@
 # LEMP Dock
 A docker image for LEMP Stack Development
 
+[![LEMP DockClone Counter](https://img.shields.io/github/downloads/arifulhb/lempdock/total.svg)]()
 
 ## Installation / Usage
 
